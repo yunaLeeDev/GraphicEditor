@@ -37,6 +37,16 @@ public class GToolBar extends JToolBar {
         this.add(this.textBoxButton);
     }
 
+    // 현재 선택된 버튼의 도형 타입 반환
+    public String getSelectedShape() {
+        if (rectangleButton.isSelected()) return "Rectangle";
+        if (triangleButton.isSelected()) return "Triangle";
+        if (ovalButton.isSelected()) return "Oval";
+        if (polygonButton.isSelected()) return "Polygon";
+        if (textBoxButton.isSelected()) return "TextBox";
+        return null;
+    }
+
     public void initialize() {
     }
 }
