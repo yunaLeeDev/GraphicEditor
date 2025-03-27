@@ -15,25 +15,26 @@ public class GDrawingPanel extends JPanel {
     private boolean isDragging = false;
     private ArrayList<GShape> shapes = new ArrayList<>();
     private GShape previewShape = null;
-    private JTextField textField; // 텍스트 입력을 위한 텍스트 필드
+    private GShape selectedShape = null;
+    private int prevX, prevY; // 이전 마우스 위치 저장
 
     public GDrawingPanel() {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                startDrawing(e);
+                selectOrStartDrawing(e);
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                finishDrawing(); // MouseEvent를 받지 않고 직접 텍스트 입력 후 도형 추가
+                finishDrawingOrMoving();
             }
         });
 
         this.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                updatePreview(e);
+                moveOrUpdatePreview(e);
             }
         });
     }
@@ -45,77 +46,67 @@ public class GDrawingPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        // 기존 도형 유지
+
         for (GShape shape : shapes) {
             shape.draw(g);
         }
 
-        // 미리보기 도형
         if (previewShape != null) {
             previewShape.draw(g);
         }
     }
 
-    private void startDrawing(MouseEvent e) {
-        x1 = e.getX();
-        y1 = e.getY();
-        isDragging = true;
+    private void selectOrStartDrawing(MouseEvent e) {
+        prevX = e.getX();
+        prevY = e.getY();
 
-        if (gToolBar != null && gToolBar.getSelectedShape().equals("TextBox")) {
-            showTextField(e);
+        for (GShape shape : shapes) {
+            if (shape.contains(prevX, prevY)) {
+                selectedShape = shape;  // 클릭한 도형 선택
+                return;
+            }
+        }
+
+        selectedShape = null;
+        isDragging = true;
+        x1 = prevX;
+        y1 = prevY;
+    }
+
+    private void moveOrUpdatePreview(MouseEvent e) {
+        if (selectedShape != null) {
+            int dx = e.getX() - prevX;
+            int dy = e.getY() - prevY;
+            selectedShape.moveTo(dx, dy);
+            prevX = e.getX();
+            prevY = e.getY();
+            repaint();
+        } else if (isDragging) {
+            x2 = e.getX();
+            y2 = e.getY();
+            previewShape = createShape();
+            repaint();
         }
     }
 
-    private void updatePreview(MouseEvent e) {
-        x2 = e.getX();
-        y2 = e.getY();
-        previewShape = createShape();
-        repaint(); // 실시간 미리보기
-    }
-
-    private void finishDrawing() {
-        if (gToolBar != null && gToolBar.getSelectedShape().equals("TextBox") && textField != null) {
-            // 텍스트 박스를 다 그린 후, 텍스트를 텍스트 박스 객체에 저장
-            GTextBox newTextBox = new GTextBox(x1, y1, x2, y2);
-            newTextBox.setText(textField.getText());
-            shapes.add(newTextBox);
-            textField = null; // 텍스트 필드 초기화
-        } else {
+    private void finishDrawingOrMoving() {
+        if (selectedShape != null) {
+            selectedShape = null;
+        } else if (isDragging) {
             GShape newShape = createShape();
             if (newShape != null) {
                 shapes.add(newShape);
             }
         }
 
-        previewShape = null; // 미리보기 삭제
-        repaint();
-    }
-
-    private void showTextField(MouseEvent e) {
-        if (textField != null) {
-            remove(textField); // 이전 텍스트 필드 삭제
-        }
-
-        textField = new JTextField();
-        textField.setBounds(e.getX(), e.getY(), 150, 30);
-        textField.setBackground(Color.WHITE);
-
-        textField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                finishDrawing();
-            }
-        });
-
-        add(textField);
-        textField.requestFocusInWindow();
+        previewShape = null;
+        isDragging = false;
         repaint();
     }
 
     private GShape createShape() {
         if (gToolBar == null) return null;
-        
+
         String selectedShape = gToolBar.getSelectedShape();
         if (selectedShape == null) return null;
 
