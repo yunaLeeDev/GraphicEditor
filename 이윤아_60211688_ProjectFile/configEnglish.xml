@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GConstants>
+    <EMainFrame eX="200" eY="100" eW="1000" eH="1000"/>
+    <EFileMenuItem>
+        <eNew label="New File" toolTipText="Create a new file"/>
+        <eOpen label="Open" toolTipText="Open an existing file."/>
+        <eSave label="Save" toolTipText="Save the current file."/>
+        <eSaveAs label="Save As" toolTipText="Save the file with a new name."/>
+        <ePrint label="Print" toolTipText="Print the file."/>
+        <eClose label="Close" toolTipText="Close the current file."/>
+        <eQuit label="Quit" toolTipText="Exit the program."/>
+    </EFileMenuItem>
+    <EShapeTool>
+        <eSelect name="select"/>
+        <eRectangle name="rectangle"/>
+	<eTriangle name="triangle"/>
+        <eEllipse name="ellipse"/>
+        <eLine name="line"/>
+        <ePolygon name="polygon"/>
+    </EShapeTool>
+    <EMenuBarButton>
+	<eFileMenu label="File" />
+	<eShapeColorButton label="Shape Color" />
+	<ePanelColorButton label="BackGround Color" />
+	<eResetButton label="reset" />
+	<eUnGroupButton label="UnGroup" />
+	<eLanguageButton label="Korean" />
+    </EMenuBarButton>
+<EContextMenuButton>
+    <eCopy label="copy" />
+    <ePaste label="paste" />
+    <eCut label="cut" />
+    <eBringToFront label="getfront" />
+    <eSendToBack label="sendBack" />
+    <eDelete label="delete" />
+    <eShowStatus label="show StatePanel" />
+</EContextMenuButton>
+</GConstants>

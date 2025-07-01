@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GConstants>
+    <EMainFrame eX="200" eY="100" eW="1000" eH="1000"/>
+    <EFileMenuItem>
+        <eNew label="새 파일" toolTipText="새로운 파일을 생성"/>
+        <eOpen label="열기" toolTipText="파일을 엽니다."/>
+        <eSave label="저장" toolTipText="현재 파일을 저장합니다."/>
+        <eSaveAs label="다른 이름으로 저장" toolTipText="다른 이름으로 파일을 저장합니다."/>
+        <ePrint label="인쇄" toolTipText="파일을 인쇄합니다."/>
+        <eClose label="닫기" toolTipText="현재 파일을 닫습니다."/>
+        <eQuit label="종료" toolTipText="프로그램을 종료합니다."/>
+    </EFileMenuItem>
+    <EShapeTool>
+        <eSelect name="선택 모드"/>
+        <eRectangle name="사각형"/>
+	<eTriangle name="삼각형"/>
+        <eEllipse name="동그라미"/>
+        <eLine name="선"/>
+        <ePolygon name="폴리곤"/>
+    </EShapeTool>
+    <EMenuBarButton>
+        <eFileMenu label="파일" />
+	<eShapeColorButton label="도형 색상" />
+	<ePanelColorButton label="배경 색상" />
+	<eResetButton label="리셋" />
+	<eUnGroupButton label="그룹화 해제" />
+	<eLanguageButton label="영어 모드" />
+    </EMenuBarButton>
+<EContextMenuButton>
+    <eCopy label="복사" />
+    <ePaste label="붙여넣기" />
+    <eCut label="잘라내기" />
+    <eBringToFront label="맨앞으로" />
+    <eSendToBack label="맨뒤로" />
+    <eDelete label="삭제" />
+    <eShowStatus label="상태창 보기" />
+</EContextMenuButton>
+</GConstants>
