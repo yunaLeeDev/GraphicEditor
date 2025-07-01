@@ -43,7 +43,7 @@ public class GMenuBar extends JMenuBar {
         isColorSelected = false;
 
         this.fileMenu = new GFileMenu(GConstants.EMenuBarButton.eFileMenu.getName(),
-                "C:\\Users\\yuna\\eclipse-workspace\\이윤아_60211688_ProjectFile");
+                "\");
         this.add(this.fileMenu, BorderLayout.WEST);  // 왼쪽 고정
 
         // 오른쪽 버튼들을 담을 패널 생성 (FlowLayout 오른쪽 정렬)
